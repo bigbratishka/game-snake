@@ -49,7 +49,7 @@ let btnStart = $('.btnStart'),
       speed1: $('<button></button>', {
         'text': 'Легко (x0.7)',
         'class': 'btnOptionsSpeedSpeed1',
-        'data-new-menu': 'menu.options',
+        'data-new-menu': 'menu.optionsList',
         'data-option-speed': '200',
         'data-mod-speed': '0.7'
       }),
@@ -142,7 +142,8 @@ $('.btnStart').click(function () {
 });
 // Клик по кнопке "Справка"
 $('.btnAbout').click(function () {
-  $('.main-menu').fadeOut(300, () => $('.about-block').fadeIn(300));
+  $('.main-menu').fadeOut(300, () => {$('.about-block').fadeIn(300);
+  $(btnAboutClose).fadeIn(300)});
 });
 btnAboutClose.click(function () {
   $('.about-block').fadeOut(300, () => $('.main-menu').fadeIn(300));
