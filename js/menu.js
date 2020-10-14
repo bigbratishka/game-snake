@@ -49,7 +49,7 @@ let btnStart = $('.btnStart'),
       speed1: $('<button></button>', {
         'text': 'Легко (x0.7)',
         'class': 'btnOptionsSpeedSpeed1',
-        'data-new-menu': 'menu.options',
+        'data-new-menu': 'menu.optionsList',
         'data-option-speed': '200',
         'data-mod-speed': '0.7'
       }),
