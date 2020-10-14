@@ -142,7 +142,8 @@ $('.btnStart').click(function () {
 });
 // Клик по кнопке "Справка"
 $('.btnAbout').click(function () {
-  $('.main-menu').fadeOut(300, () => $('.about-block').fadeIn(300));
+  $('.main-menu').fadeOut(300, () => {$('.about-block').fadeIn(300);
+  $(btnAboutClose).fadeIn(300)});
 });
 btnAboutClose.click(function () {
   $('.about-block').fadeOut(300, () => $('.main-menu').fadeIn(300));
