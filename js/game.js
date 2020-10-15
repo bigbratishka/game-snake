@@ -21,7 +21,7 @@ let textGameOver = $('<p></p>'),
 
 let secondPlayer = false;
 
-let box = 40,
+let box = canvas.width / 16,
   score = 0,
   record = 0,
   time = 120,
@@ -78,10 +78,6 @@ function direction(event) {
 function eatTail(head, arr) {
   for (let i = 0; i < arr.length; i++) {
     if (head.x == arr[i].x && head.y == arr[i].y) {
-      food.eaten = 0;
-      food.specFlag = 0;
-      food.specY = 0;
-      food.specX = 0;
       clearInterval(game);
       gameOver();
     };
@@ -90,8 +86,8 @@ function eatTail(head, arr) {
 
 function gameOver() {
   textGameOver.text(`Вы проиграли. Ваш счет: ${Math.ceil(score * modificator.speed * modificator.specChance)}, коэффициент: ${modificator.speed * modificator.specChance}`);
-  $('canvas').fadeOut(300,() => $('.main-menu').fadeIn(300));
-  
+  $('canvas').fadeOut(300, () => $('.main-menu').fadeIn(300));
+
   $('button').hide();
   $('.main-menu').append(textGameOver);
   $('.main-menu').append(spanGameOver);
@@ -135,7 +131,7 @@ function drawGame() {
   ctx.drawImage(groundImg, 0, 0);
   ctx.drawImage(foodImg, food.x, food.y);
 
-  
+
 
   if (food.specFlag == 1) {
     slideCount++;
@@ -192,6 +188,23 @@ function drawGame() {
     food.eaten++;
     food.x = Math.floor(Math.random() * 15) * box;
     food.y = Math.floor(Math.random() * 15 + 2) * box;
+
+    for (let i = 0; i < snake.length; i++) {
+      if (food.x == snake[i].x && food.y == snake[i].y) {
+        let foodError = 1;
+        while (foodError = 1) {
+          for (let i = 0; i < snake.length; i++) {
+            if (food.x == snake[i].x && food.y == snake[i].y) {
+
+            };
+          };
+        }
+      };
+    };
+
+
+
+
 
     if (food.x == food.specX || food.y == food.specY) {
       food.x = Math.floor(Math.random() * 15) * box;

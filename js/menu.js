@@ -149,8 +149,8 @@ btnAboutClose.click(function () {
   $('.about-block').fadeOut(300, () => $('.main-menu').fadeIn(300));
 });
 // Клик по кнопке "Выход"
-$('btnExit').click(function () {
-  $('.main-menu').fadeOut(2000, () => window.close());
+$('.btnExit').click(function () {
+  $('.main-menu').fadeOut(500, () => window.close());
 });
 menu.main.options.click(function () {
   createNewMenu($(this));
