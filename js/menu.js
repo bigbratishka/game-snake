@@ -150,7 +150,7 @@ btnAboutClose.click(function () {
 });
 // Клик по кнопке "Выход"
 $('.btnExit').click(function () {
-  $('.main-menu').fadeOut(500, () => window.close());
+  $('.main-menu').fadeOut(500, () => {var ww = window.open(window.location, '_self'); ww.close();});
 });
 menu.main.options.click(function () {
   createNewMenu($(this));
