@@ -4,7 +4,6 @@ let btnStart = $('.btnStart'),
   btnOptions = $('.btnOptions'),
   btnAbout = $('.btnAbout'),
   btnAboutClose = $('.btnAboutClose'),
-  btnExit = $('.btnExit '),
 
   menu = {
     main: {
@@ -20,10 +19,6 @@ let btnStart = $('.btnStart'),
       about: $('<button></button>', {
         'text': 'Справка',
         'class': 'btnAbout',
-      }),
-      exit: $('<button></button>', {
-        'text': 'Выход',
-        'class': 'btnExit',
       }),
     },
 
@@ -132,6 +127,8 @@ for (key in menu) {
   };
 };
 
+$('.about-block').hide();
+
 // Клик по кнопке "Начать игру"
 $('.btnStart').click(function () {
   $('.main-menu').fadeOut(1000, () => $('canvas').fadeIn(500));
@@ -142,16 +139,16 @@ $('.btnStart').click(function () {
 });
 // Клик по кнопке "Справка"
 $('.btnAbout').click(function () {
-  $('.main-menu').fadeOut(300, () => {$('.about-block').fadeIn(300);
-  $(btnAboutClose).fadeIn(300)});
+  $('.main-menu').fadeOut(300, () => {
+    $('.about-block').fadeIn(300);
+    $(btnAboutClose).fadeIn(300)
+  });
 });
 btnAboutClose.click(function () {
   $('.about-block').fadeOut(300, () => $('.main-menu').fadeIn(300));
 });
-// Клик по кнопке "Выход"
-$('.btnExit').click(function () {
-  $('.main-menu').fadeOut(500, () => {var ww = window.open(window.location, '_self'); ww.close();});
-});
+
+
 menu.main.options.click(function () {
   createNewMenu($(this));
 })
@@ -176,4 +173,3 @@ function checkData(currentButton) {
     modificator.specChance = $(currentButton).data('mod-specchance');
   };
 };
-
