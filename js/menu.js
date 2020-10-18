@@ -127,8 +127,6 @@ for (key in menu) {
   };
 };
 
-$('.about-block').hide();
-
 // Клик по кнопке "Начать игру"
 $('.btnStart').click(function () {
   $('.main-menu').fadeOut(1000, () => $('canvas').fadeIn(500));

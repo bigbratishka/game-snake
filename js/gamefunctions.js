@@ -1,4 +1,6 @@
+// Изменение направления движения змейки
 function direction(event) {
+  previousDir = dir;
   if (timerCheck != timer) {
     timerCheck = timer;
     if (event.keyCode == 37 && dir != "right") {
@@ -10,9 +12,21 @@ function direction(event) {
     } else if (event.keyCode == 40 && dir != "up") {
       dir = "down";
     };
-  }
+  } else {
+    directionFlag = 1;
+    if (event.keyCode == 37 && dir != "right") {
+      nextDir = "left";
+    } else if (event.keyCode == 38 && dir != "down") {
+      nextDir = "up";
+    } else if (event.keyCode == 39 && dir != "left") {
+      nextDir = "right";
+    } else if (event.keyCode == 40 && dir != "up") {
+      nextDir = "down";
+    };
+  };
 };
 
+// Змейка врезалась в хвост
 function eatTail(head, arr) {
   for (let i = 0; i < arr.length; i++) {
     if (head.x == arr[i].x && head.y == arr[i].y) {
@@ -22,6 +36,7 @@ function eatTail(head, arr) {
   };
 };
 
+// Окончание игры
 function gameOver() {
   textGameOver.text(`Вы проиграли. Ваш счет: ${Math.ceil(score * modificator.speed * modificator.specChance)}, коэффициент: ${modificator.speed * modificator.specChance}`);
   $('canvas').fadeOut(300, () => $('.main-menu').fadeIn(300));
@@ -36,6 +51,7 @@ function gameOver() {
   setTimeout(() => document.addEventListener("keydown", newGame), 500);
 };
 
+// Новая игра
 function newGame() {
   ctx.drawImage(gameOverImg, 0, 0);
   score = 0;
@@ -65,18 +81,85 @@ function newGame() {
   document.removeEventListener("keydown", newGame);
 };
 
-function drawSnake(arr, colorHead, colorBody) {
+// Отрисовка змейки
+function drawSnake(arr, colorBody) {
+
+  if (dir != previousDir) {
+    if (dir == "left") {
+      headImgPos.x = 180;
+      if (previousDir == "up") {
+        headImgPos.y = 60;
+      } else {
+        headImgPos.y = 0;
+      };
+    } else if (dir == "up") {
+      headImgPos.x = 0;
+      if (previousDir == "right") {
+        headImgPos.y = 60;
+      } else {
+        headImgPos.y = 0;
+      };
+    } else if (dir == "right") {
+      headImgPos.x = 60;
+      if (previousDir == "down") {
+        headImgPos.y = 60;
+      } else {
+        headImgPos.y = 0;
+      };
+    } else if (dir == "down") {
+      headImgPos.x = 120;
+      if (previousDir == "left") {
+        headImgPos.y = 60;
+      } else {
+        headImgPos.y = 0;
+      };
+    };
+  } else {
+    if (dir == "left") {
+      headImgPos.x = 180;
+      headImgPos.y = 120;
+    } else if (dir == "up") {
+      headImgPos.x = 0;
+      headImgPos.y = 120;
+    } else if (dir == "right") {
+      headImgPos.x = 60;
+      headImgPos.y = 120;
+    } else if (dir == "down") {
+      headImgPos.x = 120;
+      headImgPos.y = 120;
+    };
+  };
+
   for (let i = 0; i < arr.length; i++) {
-    ctx.fillStyle = i == 0 ? colorHead : colorBody;
-    ctx.fillRect(arr[i].x, arr[i].y, box, box);
+    if (i == 0) {
+      switch (dir) {
+        case "left":
+          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x - 20, arr[i].y, 60, 40);
+          break;
+        case "right":
+          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x, arr[i].y, 60, 40);
+          break;
+        case "up":
+          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y - 20, 40, 60);
+          break;
+        case "down":
+          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y, 40, 60);
+          break;
+      };
+    } else {
+      ctx.fillStyle = colorBody;
+      ctx.fillRect(arr[i].x, arr[i].y, box, box);
+    }
   };
 };
 
+// Создание новых координат еды
 function randCoordFood() {
   food.x = Math.floor(Math.random() * 15) * box;
   food.y = Math.floor(Math.random() * 15 + 2) * box;
 }
 
+// Змейка врезалась в стену
 function wallHit(x, y) {
   if (x < 0 || x > box * 15 || y < box * 2 || y > box * 17) {
     clearInterval(game);
