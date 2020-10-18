@@ -10,6 +10,9 @@ foodImg.src = "img/food.png";
 const foodSpecImg = new Image();
 foodSpecImg.src = "img/food special.png"
 
+const headImg = new Image();
+headImg.src = "img/head.png"
+
 const gameOverImg = new Image();
 gameOverImg.src = "img/gameover.png"
 
@@ -19,7 +22,7 @@ let textGameOver = $('<p></p>', {
   spanGameOver = $('<span></span>', {
     'text': 'Для начала новой игры нажмите на любую клавишу',
     'class': 'span-game-over'
-});
+  });
 
 let secondPlayer = false;
 
@@ -31,9 +34,13 @@ let box = canvas.width / 16,
   slideNumber = 0,
   slideCount = 0,
   timer = 0,
+  directionFlag = 0,
+  headNum = 0,
   timerCheck,
   game,
   dir,
+  previousDir,
+  nextDir,
   food = {
     x: Math.floor(Math.random() * 15) * box,
     y: Math.floor(Math.random() * 15 + 2) * box,
@@ -51,6 +58,11 @@ let box = canvas.width / 16,
 snake[0] = {
   x: 8 * box,
   y: 9 * box
+};
+
+headImgPos = {
+  x: 0,
+  y: 0,
 };
 
 // function direction2(event) {
@@ -87,7 +99,7 @@ function drawGame() {
 
   ctx.drawImage(foodSpecImg, slideNumber * box, 0, 40, 40, food.specX, food.specY, 40, 40);
 
-  drawSnake(snake, 'white', 'red')
+  drawSnake(snake, 'red')
 
   ctx.fillStyle = "white";
   ctx.font = "60px Architects Daughter, Times, serif";
@@ -153,6 +165,11 @@ function drawGame() {
       break;
   };
 
+  if (directionFlag == 1) {
+    dir = nextDir;
+    directionFlag = 0;
+  };
+
   let newHead = {
     x: snakeX,
     y: snakeY
@@ -169,4 +186,6 @@ function drawGame() {
     food.specFlag = 1;
   };
   timer++;
+
+  previousDir = dir;
 };

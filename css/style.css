@@ -10,7 +10,7 @@ body {
     overflow: hidden;
     background-color: black;
 }
- 
+
 canvas {
     display: none;
     width: 640px;
@@ -43,7 +43,7 @@ button {
     color: white;
     background-color: black;
     font-size: 30px;
-    font-family: "Courier New", Times, serif;   
+    font-family: "Courier New", Times, serif;
     outline: none;
     cursor: pointer;
     transition: margin 0.3s, font-size 0.3s, text-shadow 0.3s;
