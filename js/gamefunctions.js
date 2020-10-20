@@ -1,6 +1,5 @@
 // Изменение направления движения змейки
 function direction(event) {
-  previousDir = dir;
   if (timerCheck != timer) {
     timerCheck = timer;
     if (event.keyCode == 37 && dir != "right") {
@@ -12,6 +11,7 @@ function direction(event) {
     } else if (event.keyCode == 40 && dir != "up") {
       dir = "down";
     };
+    nextDir = undefined;
   } else {
     directionFlag = 1;
     if (event.keyCode == 37 && dir != "right") {
@@ -24,6 +24,43 @@ function direction(event) {
       nextDir = "down";
     };
   };
+
+  if (previousDir != dir) {
+    let cornerNum;
+    if (previousDir == "left") {
+      if (dir == "up") {
+        cornerNum = 0;
+      } else {
+        cornerNum = 80;
+      };
+    } else if (previousDir == "up") {
+      if (dir == "left") {
+        cornerNum = 80;
+      } else {
+        cornerNum = 40;
+      };
+    } else if (previousDir == "right") {
+      if (dir == "up") {
+        cornerNum = 120;
+      } else {
+        cornerNum = 80;
+      };
+    } else if (previousDir == "down") {
+      if (dir == "left") {
+        cornerNum = 120;
+      } else {
+        cornerNum = 80;
+      };
+    };
+
+    let newCorner = {
+      x: snake[0].x,
+      y: snake[0].y,
+      cornerNum: cornerNum
+    }
+
+    cornerPos.unshift(newCorner);
+  }
 };
 
 // Змейка врезалась в хвост
@@ -115,37 +152,52 @@ function drawSnake(arr, colorBody) {
       };
     };
   } else {
+    headImgPos.y = 120;
     if (dir == "left") {
       headImgPos.x = 180;
-      headImgPos.y = 120;
     } else if (dir == "up") {
       headImgPos.x = 0;
-      headImgPos.y = 120;
     } else if (dir == "right") {
       headImgPos.x = 60;
-      headImgPos.y = 120;
     } else if (dir == "down") {
       headImgPos.x = 120;
-      headImgPos.y = 120;
     };
   };
 
   for (let i = 0; i < arr.length; i++) {
-    if (i == 0) {
-      switch (dir) {
-        case "left":
-          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x - 20, arr[i].y, 60, 40);
-          break;
-        case "right":
-          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x, arr[i].y, 60, 40);
-          break;
-        case "up":
-          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y - 20, 40, 60);
-          break;
-        case "down":
-          ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y, 40, 60);
-          break;
+
+    for (let i2 = 0; i2 < cornerPos.length; i2++) {
+      if (cornerPos[i2].x == arr[i].x && cornerPos[i2].y == arr[i].y) {
+        console.log('1');
+        ctx.fillStyle = colorBody;
+      ctx.fillRect(cornerPos[i2].x, cornerPos[i2].y, box, box);
       };
+    }
+
+    if (i == 0) {
+      // switch (dir) {
+      //   case "left":
+      //     ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x - 20, arr[i].y, 60, 40);
+      //     break;
+      //   case "right":
+      //     ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 60, 40, arr[i].x, arr[i].y, 60, 40);
+      //     break;
+      //   case "up":
+      //     ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y - 20, 40, 60);
+      //     break;
+      //   case "down":
+      //     ctx.drawImage(headImg, headImgPos.x, headImgPos.y, 40, 60, arr[i].x, arr[i].y, 40, 60);
+      //     break;
+      // };
+      // } else if (arr.some(elem => {for (let i2 = 0; i2 < cornerPos.length; i2++) {
+      //   if (cornerPos[i2].x == arr[i].x) {
+      //     console.log('1')
+      //   };
+      // }
+      // console.log('1');
+      ctx.fillStyle = 'white';
+      ctx.fillRect(arr[i].x, arr[i].y, box, box);
+
     } else {
       ctx.fillStyle = colorBody;
       ctx.fillRect(arr[i].x, arr[i].y, box, box);

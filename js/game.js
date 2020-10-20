@@ -8,13 +8,16 @@ const foodImg = new Image();
 foodImg.src = "img/food.png";
 
 const foodSpecImg = new Image();
-foodSpecImg.src = "img/food special.png"
+foodSpecImg.src = "img/food special.png";
 
 const headImg = new Image();
-headImg.src = "img/head.png"
+headImg.src = "img/head.png";
+
+const bodyCornerImg = new Image();
+bodyCornerImg.src = "img/body-corner.png";
 
 const gameOverImg = new Image();
-gameOverImg.src = "img/gameover.png"
+gameOverImg.src = "img/gameover.png";
 
 let textGameOver = $('<p></p>', {
   'class': 'text-game-over'
@@ -23,8 +26,6 @@ let textGameOver = $('<p></p>', {
     'text': 'Для начала новой игры нажмите на любую клавишу',
     'class': 'span-game-over'
   });
-
-let secondPlayer = false;
 
 let box = canvas.width / 16,
   score = 0,
@@ -64,6 +65,18 @@ headImgPos = {
   x: 0,
   y: 0,
 };
+
+cornerPos = [];
+
+cornerPos[0] = {
+  x: undefined,
+  y: undefined,
+  cornerX: undefined,
+  cornerY: undefined
+}
+
+cornerPosInd = 0;
+
 
 // function direction2(event) {
 //   if (event.keyCode == 65 && dir != "right") {
@@ -186,6 +199,6 @@ function drawGame() {
     food.specFlag = 1;
   };
   timer++;
-
+  
   previousDir = dir;
 };
