@@ -27,9 +27,14 @@ let textGameOver = $('<p></p>', {
     'class': 'span-game-over'
   });
 
+if (!localStorage.getItem('points')) {
+  localStorage.setItem('points', '0');
+};
+
 let box = canvas.width / 16,
   score = 0,
   record = 0,
+  points = +localStorage.getItem('points'),
   time = 120,
   specChance = 120,
   slideNumber = 0,
