@@ -16,6 +16,11 @@ let btnStart = $('.btnStart'),
         'class': 'btnOptions',
         'data-new-menu': 'menu.optionsList'
       }),
+      store: $('<button></button>', {
+        'text': 'Магазин',
+        'class': 'btnStore',
+        'data-new-menu': 'menu.store'
+      }),
       about: $('<button></button>', {
         'text': 'Справка',
         'class': 'btnAbout',
@@ -33,7 +38,7 @@ let btnStart = $('.btnStart'),
         'class': 'btnOptionsSpecChance',
         'data-new-menu': 'menu.specChance'
       }),
-      back: $('<button></button>', {
+      optionsBack: $('<button></button>', {
         'text': 'Назад',
         'class': 'btnOptionsBack',
         'data-new-menu': 'menu.main'
@@ -111,6 +116,14 @@ let btnStart = $('.btnStart'),
         'data-new-menu': 'menu.optionsList',
       }),
     },
+
+    store: {
+      storeBack: $('<button></button>', {
+        'text': 'Назад',
+        'class': 'btnStoreStoreBack',
+        'data-new-menu': 'menu.main',
+      }),
+    },
   };
 
 for (key in menu) {
@@ -129,8 +142,15 @@ for (key in menu) {
 
 // Клик по кнопке "Начать игру"
 $('.btnStart').click(function () {
-  $('.main-menu').fadeOut(1000, () => $('canvas').fadeIn(500));
-
+  $('.main-menu').fadeOut(1000, () => {$('canvas').fadeIn(500);
+    if (screen.width < 768) {
+      $('#game-field-buttons').fadeIn(500)};
+      document.getElementById('left-button').addEventListener("click", direction);
+      document.getElementById('right-button').addEventListener("click", direction);
+      document.getElementById('up-button').addEventListener("click", direction);
+      document.getElementById('down-button').addEventListener("click", direction);
+    });
+  
   // Запуск игры
   game = setInterval(drawGame, time);
   document.addEventListener("keydown", direction);
@@ -149,7 +169,11 @@ btnAboutClose.click(function () {
 
 menu.main.options.click(function () {
   createNewMenu($(this));
-})
+});
+
+menu.main.store.click(function () {
+  createNewMenu($(this));
+});
 
 function createNewMenu(currentButton) {
   $('button').not('[style="display: none;"]').hide();

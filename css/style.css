@@ -22,6 +22,10 @@ canvas {
     border-radius: 20px;
 }
 
+#game-field-buttons {
+    display: none;
+}
+
 .main-menu {
     display: flex;
     flex-direction: column;
@@ -103,4 +107,70 @@ button:hover {
     font-family: "Courier New", Times, serif;
     font-size: 25px;
     color: #aaaaaa;
+}
+
+@media (max-width:768px) {
+    body {
+        overflow: auto;
+    }
+    button {
+        font-size: 20px;
+    }
+    button:hover {
+        font-size: 30px;
+        margin: 30px auto;
+        text-shadow: none;
+    }
+    .btnAboutClose:hover {
+        font-size: 30px;
+        margin: 0 auto;
+        text-shadow: none;
+    }
+    .about-block {
+        font-size: 15px;
+        line-height: 1em;
+        margin: 0;
+        padding: 0;
+    }
+    canvas {
+        zoom: 0.45;
+        top: 40%;
+    }
+    #game-field-buttons {
+        height: 95vh;
+        width: 288px;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    #game-buttons {
+        display: flex;
+        flex-wrap: nowrap;
+        height: 100px;
+        width: 288px;
+        position: absolute;
+        bottom: 0;
+    }
+    #game-buttons button{
+        width: 110px;
+        border: 1px dotted rgb(150, 0, 0);
+        margin: 0;
+        padding: 0;
+        outline: none;
+        -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+        -webkit-tap-highlight-color: transparent;
+    }
+    #game-buttons button:active,
+    #game-buttons button:focus, 
+    #game-buttons button:hover {
+        outline: none;
+    }
+
+    #left-button,
+    #right-button {
+        height: 100px;
+        width: 89px;
+    }
 }

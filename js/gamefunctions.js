@@ -1,14 +1,15 @@
 // Изменение направления движения змейки
 function direction(event) {
+  console.log(event.path[0].id);
   if (timerCheck != timer) {
     timerCheck = timer;
-    if (event.keyCode == 37 && dir != "right") {
+    if ((event.keyCode == 37 || event.path[0].id == 'left-button') && dir != "right") {
       dir = "left";
-    } else if (event.keyCode == 38 && dir != "down") {
+    } else if ((event.keyCode == 38 || event.path[0].id == 'up-button') && dir != "down") {
       dir = "up";
-    } else if (event.keyCode == 39 && dir != "left") {
+    } else if ((event.keyCode == 39 || event.path[0].id == 'right-button') && dir != "left") {
       dir = "right";
-    } else if (event.keyCode == 40 && dir != "up") {
+    } else if ((event.keyCode == 40 || event.path[0].id == 'down-button') && dir != "up") {
       dir = "down";
     };
     nextDir = undefined;
@@ -53,14 +54,14 @@ function direction(event) {
       };
     };
 
-    let newCorner = {
-      x: snake[0].x,
-      y: snake[0].y,
-      cornerNum: cornerNum
-    }
+    // let newCorner = {
+    //   x: snake[0].x,
+    //   y: snake[0].y,
+    //   cornerNum: cornerNum
+    // }
 
-    cornerPos.unshift(newCorner);
-  }
+    // cornerPos.unshift(newCorner);
+  };
 };
 
 // Змейка врезалась в хвост
@@ -81,6 +82,9 @@ function gameOver() {
   $('button').hide();
   $('.main-menu').append(textGameOver);
   $('.main-menu').append(spanGameOver);
+
+  points = score + points;
+  localStorage.setItem('points', points);
 
   if (Math.ceil(score * modificator.speed * modificator.specChance) > record) {
     record = Math.ceil(score * modificator.speed * modificator.specChance);
@@ -121,58 +125,58 @@ function newGame() {
 // Отрисовка змейки
 function drawSnake(arr, colorBody) {
 
-  if (dir != previousDir) {
-    if (dir == "left") {
-      headImgPos.x = 180;
-      if (previousDir == "up") {
-        headImgPos.y = 60;
-      } else {
-        headImgPos.y = 0;
-      };
-    } else if (dir == "up") {
-      headImgPos.x = 0;
-      if (previousDir == "right") {
-        headImgPos.y = 60;
-      } else {
-        headImgPos.y = 0;
-      };
-    } else if (dir == "right") {
-      headImgPos.x = 60;
-      if (previousDir == "down") {
-        headImgPos.y = 60;
-      } else {
-        headImgPos.y = 0;
-      };
-    } else if (dir == "down") {
-      headImgPos.x = 120;
-      if (previousDir == "left") {
-        headImgPos.y = 60;
-      } else {
-        headImgPos.y = 0;
-      };
-    };
-  } else {
-    headImgPos.y = 120;
-    if (dir == "left") {
-      headImgPos.x = 180;
-    } else if (dir == "up") {
-      headImgPos.x = 0;
-    } else if (dir == "right") {
-      headImgPos.x = 60;
-    } else if (dir == "down") {
-      headImgPos.x = 120;
-    };
-  };
+  // if (dir != previousDir) {
+  //   if (dir == "left") {
+  //     headImgPos.x = 180;
+  //     if (previousDir == "up") {
+  //       headImgPos.y = 60;
+  //     } else {
+  //       headImgPos.y = 0;
+  //     };
+  //   } else if (dir == "up") {
+  //     headImgPos.x = 0;
+  //     if (previousDir == "right") {
+  //       headImgPos.y = 60;
+  //     } else {
+  //       headImgPos.y = 0;
+  //     };
+  //   } else if (dir == "right") {
+  //     headImgPos.x = 60;
+  //     if (previousDir == "down") {
+  //       headImgPos.y = 60;
+  //     } else {
+  //       headImgPos.y = 0;
+  //     };
+  //   } else if (dir == "down") {
+  //     headImgPos.x = 120;
+  //     if (previousDir == "left") {
+  //       headImgPos.y = 60;
+  //     } else {
+  //       headImgPos.y = 0;
+  //     };
+  //   };
+  // } else {
+  //   headImgPos.y = 120;
+  //   if (dir == "left") {
+  //     headImgPos.x = 180;
+  //   } else if (dir == "up") {
+  //     headImgPos.x = 0;
+  //   } else if (dir == "right") {
+  //     headImgPos.x = 60;
+  //   } else if (dir == "down") {
+  //     headImgPos.x = 120;
+  //   };
+  // };
 
   for (let i = 0; i < arr.length; i++) {
 
-    for (let i2 = 0; i2 < cornerPos.length; i2++) {
-      if (cornerPos[i2].x == arr[i].x && cornerPos[i2].y == arr[i].y) {
-        console.log('1');
-        ctx.fillStyle = colorBody;
-      ctx.fillRect(cornerPos[i2].x, cornerPos[i2].y, box, box);
-      };
-    }
+    // for (let i2 = 0; i2 < cornerPos.length; i2++) {
+    //   if (cornerPos[i2].x == arr[i].x && cornerPos[i2].y == arr[i].y) {
+    //     console.log('1');
+    //     ctx.fillStyle = colorBody;
+    //   ctx.fillRect(cornerPos[i2].x, cornerPos[i2].y, box, box);
+    //   };
+    // }
 
     if (i == 0) {
       // switch (dir) {
